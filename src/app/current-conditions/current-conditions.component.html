@@ -1,0 +1,3 @@
+<app-tabs *ngIf="weatherService.currentConditions().length > 0"
+          (navigateToForecast)="router.navigate(['/forecast', $event])"
+          (closeTab)="locationService.removeLocation($event)" [conditions]="weatherService.currentConditions()"/>

@@ -1,0 +1,26 @@
+.close app-card{
+    cursor: pointer;
+}
+.flex app-card{
+    display: flex;
+    justify-content: space-between;
+}
+.tabs {
+    display: inline-flex;
+    justify-content: space-around;
+    background-color: rgb(97, 122, 160);
+    height: 40px;
+    width: 200px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.selected-tab {
+    background-color: rgb(97, 122, 200);
+}
+span {
+    display: inline-flex;
+    align-items: center;
+    font-size: larger;
+    padding-left: 5px;
+    color: white;
+}
