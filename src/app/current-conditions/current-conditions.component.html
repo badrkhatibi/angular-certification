@@ -1,3 +1,25 @@
 <app-tabs *ngIf="weatherService.currentConditions().length > 0"
-          (navigateToForecast)="router.navigate(['/forecast', $event])"
-          (closeTab)="locationService.removeLocation($event)" [conditions]="weatherService.currentConditions()"/>
+          (selectedCondition)="selectedCondition = $event"
+          (closeTab)="locationService.removeLocation($event)" [conditions]="weatherService.currentConditions()">
+    <ng-container *ngIf="selectedCondition">
+        <div class="well flex" (click)="router.navigate(['/forecast', selectedCondition.zip])">
+                <div>
+                    <h3>{{ selectedCondition.data.name }} ({{ selectedCondition.zip }})</h3>
+                    <h4>Current conditions: {{ selectedCondition.data.weather[0].main }}</h4>
+                    <h4>Temperatures today:</h4>
+                    <p>
+                        Current {{ selectedCondition.data.main.temp | number:'.0-0' }}
+                        - Max {{ selectedCondition.data.main.temp_max | number:'.0-0' }}
+                        - Min {{ selectedCondition.data.main.temp_min | number:'.0-0' }}
+                    </p>
+                    <p>
+                        <a [routerLink]="['/forecast', selectedCondition.zip]">Show 5-day forecast
+                            for {{ selectedCondition.data.name }}</a>
+                    </p>
+                </div>
+                <div>
+                    <img [src]="selectedCondition.iconSrc">
+                </div>
+        </div>
+    </ng-container>
+</app-tabs>

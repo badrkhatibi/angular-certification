@@ -1,31 +1,9 @@
-<div *ngFor="let condition of conditions; let index = index; trackBy: trackByZip" class="tabs"
-     [ngClass]="{'selected-tab':condition.zip === selectedCondition.zip}"
+<div *ngFor="let condition of conditions(); let index = index; trackBy: trackByZip" class="tabs"
+     [ngClass]="{'selected-tab':condition.zip === _selectedCondition().zip}"
      (click)="switchSelectedTab(index)">
     <span>{{ condition.data.name }} ({{ condition.zip }})</span>
-    <span class="close" (click)="close(selectedCondition.zip, $event)">&times;</span>
+    <span class="close" (click)="close(_selectedCondition().zip, $event)">&times;</span>
 </div>
-<ng-container *ngIf="selectedCondition">
-    <div class="well flex" (click)="showForecast(selectedCondition.zip)">
-        <app-card>
-            <div>
-                <h3>{{ selectedCondition.data.name }} ({{ selectedCondition.zip }})</h3>
-                <h4>Current conditions: {{ selectedCondition.data.weather[0].main }}</h4>
-                <h4>Temperatures today:</h4>
-                <p>
-                    Current {{ selectedCondition.data.main.temp | number:'.0-0' }}
-                    - Max {{ selectedCondition.data.main.temp_max | number:'.0-0' }}
-                    - Min {{ selectedCondition.data.main.temp_min | number:'.0-0' }}
-                </p>
-                <p>
-                    <a [routerLink]="['/forecast', selectedCondition.zip]">Show 5-day forecast
-                        for {{ selectedCondition.data.name }}</a>
-                </p>
-            </div>
-            <div>
-                <img [src]="selectedCondition.iconSrc">
-            </div>
-        </app-card>
-    </div>
-</ng-container>
+<ng-content></ng-content>
 
 
